@@ -4,11 +4,12 @@ import { ThemeService } from './services/theme.service';
 import { SidebarComponent } from './components/sidebar.component';
 import { FetchComponent } from './components/fetch.component';
 import { EditorComponent } from './components/editor.component';
+import { BrowserComponent } from './components/browser.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [SidebarComponent, FetchComponent, EditorComponent],
+  imports: [SidebarComponent, FetchComponent, EditorComponent, BrowserComponent],
   template: `
     <div [style]="theme.cssVars()" class="layout">
       <app-sidebar />
@@ -23,18 +24,7 @@ import { EditorComponent } from './components/editor.component';
         </div>
 
         <div class="area-browser">
-          <div class="browser-mock">
-            <header>
-              <div class="address-bar">https://base16-db-preview.local</div>
-            </header>
-            <div class="browser-content">
-              <h2>Database Content Preview</h2>
-              <p>This space is reserved for the future DB-driven project list.</p>
-              <div class="skeleton-line"></div>
-              <div class="skeleton-line"></div>
-              <div class="skeleton-line" style="width: 60%"></div>
-            </div>
-          </div>
+          <app-browser />
         </div>
       </main>
     </div>

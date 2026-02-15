@@ -7,6 +7,8 @@ import {
 import express from 'express';
 import { join } from 'node:path';
 
+import { neon } from '@neondatabase/serverless';
+
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
@@ -23,6 +25,27 @@ const angularApp = new AngularNodeAppEngine();
  * });
  * ```
  */
+
+
+/**
+* Custom API Endpoints
+**/
+// for testing
+app.get('/api/scheme-data', async (req, res) => {
+  try {
+    const sql = neon(process.env['DATABASE_URL']!);
+
+    const data = await sql`
+      SELECT * FROM "schemeData"
+      ORDER BY "created_at" DESC
+    `;
+
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch data' });
+  }
+});
+
 
 /**
  * Serve static files from /browser
@@ -66,3 +89,4 @@ if (isMainModule(import.meta.url) || process.env['pm_id']) {
  * Request handler used by the Angular CLI (for dev-server and during build) or Firebase Cloud Functions.
  */
 export const reqHandler = createNodeRequestHandler(app);
+
