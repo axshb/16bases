@@ -35,7 +35,7 @@ import { SchemeService } from '../services/schemes.service';
   }
   .toggle-group button.active { background: var(--base0D); color: var(--base00); }
 
-  .scheme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+  .scheme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; padding: 15px; }
   .scheme-card {
     background: var(--base00); border: 1px solid var(--base02);
     padding: 12px; border-radius: 6px; position: relative;
