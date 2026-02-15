@@ -1,0 +1,22 @@
+#include <iostream>
+#include <string>
+#include <map>
+#include <memory>
+
+class Configuration {
+public:
+    int version;
+    std::map<std::string, std::string> metadata;
+
+    explicit Configuration(int v) : version(v) {}
+
+    bool has_key(const std::string& key) const {
+        return metadata.find(key) != metadata.end();
+    }
+};
+
+int main() {
+    auto config = std::make_unique<Configuration>(1);
+    config->metadata["env"] = "production";
+    return 0;
+}

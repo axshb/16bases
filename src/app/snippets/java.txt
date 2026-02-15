@@ -1,0 +1,22 @@
+package com.app.core;
+
+import java.util.Map;
+import java.util.Optional;
+
+public class Configuration {
+    private final int version;
+    private final Map<String, String> metadata;
+
+    public Configuration(int version, Map<String, String> metadata) {
+        this.version = version;
+        this.metadata = Map.copyOf(metadata);
+    }
+
+    public Optional<String> getMeta(String key) {
+        return Optional.ofNullable(metadata.get(key));
+    }
+
+    public int getVersion() {
+        return this.version;
+    }
+}

@@ -1,0 +1,20 @@
+export interface Config {
+  version: number;
+  active: boolean;
+  metadata: Record<string, string>;
+}
+
+export class ConfigManager {
+  private cache = new Map<string, Config>();
+
+  async loadConfig(path: string): Promise<Config> {
+    try {
+      const response = await fetch(path);
+      const data = await response.json();
+      this.cache.set(path, data);
+      return data;
+    } catch (error) {
+      throw new Error(`Failed to load: ${error}`);
+    }
+  }
+}
