@@ -28,8 +28,8 @@ To run this project locally, you may have to create a file named `.env.local` in
 ```bash
 DATABASE_URL=http://localhost:4200
 ```
-Note 1: This is untested. Please create an issue if needed.
-Note 2: If you are a NixOS user, you may have to prefix `ng` commands with `npx` depending on your setup.
+- Note 1: This is untested. Please create an issue if needed.
+- Note 2: If you are a NixOS user, you may have to prefix `ng` commands with `npx` depending on your setup.
 
 ### Code scaffolding
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
