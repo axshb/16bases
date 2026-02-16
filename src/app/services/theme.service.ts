@@ -1,5 +1,10 @@
 import { Injectable, signal, inject, computed } from '@angular/core';
 
+import { toSignal } from '@angular/core/rxjs-interop';
+import { HttpClient } from '@angular/common/http';
+
+import builtIns from '../../../public/themes_seed.json'
+
 export interface Base16Scheme {
   [key: string]: string;
 }
@@ -50,5 +55,22 @@ export class ThemeService {
 
     return styles;
   });
+
+  private http = inject(HttpClient);
+
+  private userSchemes = toSignal(
+    this.http.get<any[]>('/api/scheme-data'),
+    { initialValue: [] }
+  );
+
+  private builtInSchemes = signal<any[]>(builtIns);
+
+  // to do: consider sets (pass by reference might make this annoying)
+  // also, haviing userSchemes called on demand rather than every time
+  // which would involve avoiding having schemes set up like this, because
+  // components that call schemes will make an api request every time
+  public schemes = computed (() => {
+    return [...this.builtInSchemes(), ...this.userSchemes()]
+  })
 }
 

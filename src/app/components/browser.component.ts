@@ -1,7 +1,6 @@
 
 import { Component, computed, inject } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
-import { SchemeService } from '../services/schemes.service';
 
 @Component({
   selector: 'app-browser',
@@ -56,10 +55,9 @@ import { SchemeService } from '../services/schemes.service';
 })
 export class BrowserComponent {
   private theme = inject(ThemeService);
-  public schemeService = inject(SchemeService);
 
   public filteredSchemes = computed(() => {
-    return this.schemeService.schemes();
+    return this.theme.schemes();
   });
 
   onClick(selectedTheme: any) {
