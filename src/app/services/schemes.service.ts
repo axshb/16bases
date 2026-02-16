@@ -1,6 +1,8 @@
-import { Injectable, inject, computed } from '@angular/core';
+import { Injectable, inject, signal, computed } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { HttpClient } from '@angular/common/http';
+
+import builtIns from '../../../public/themes_seed.json'
 
 @Injectable({ providedIn: 'root' })
 export class SchemeService {
@@ -12,10 +14,7 @@ export class SchemeService {
     { initialValue: [] }
   );
 
-  private builtInSchemes = toSignal(
-    this.http.get<any[]>('/themes_seed.json'),
-    { initialValue: [] }
-  );
+  private builtInSchemes = signal<any[]>(builtIns);
 
   // to do: consider sets (pass by reference might make this annoying)
   public schemes = computed (() => {
