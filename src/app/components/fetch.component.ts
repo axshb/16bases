@@ -16,16 +16,16 @@ import { ThemeService } from '../services/theme.service';
         <div class="font-bold text-base0B">user<span class="text-base05">@</span>16bases</div>
         <div class="text-base05 opacity-30">-----------------------</div>
 
-        <div class="flex"><span class="font-bold text-base0D w-24">OS:</span> 16bases WebOS 1.0 x86_64</div>
-        <div class="flex"><span class="font-bold text-base0D w-24">Host:</span> Node.js 24</div>
-        <div class="flex"><span class="font-bold text-base0D w-24">Uptime:</span> 4 hours, 12 mins</div>
-        <div class="flex"><span class="font-bold text-base0D w-24">Packages:</span> 214 (npm)</div>
-        <div class="flex"><span class="font-bold text-base0D w-24">Shell:</span> zsh 5.9</div>
-        <div class="flex"><span class="font-bold text-base0D w-24">DE:</span> Angular</div>
-        <div class="flex"><span class="font-bold text-base0D w-24">WM:</span> DOM</div>
-        <div class="flex"><span class="font-bold text-base0D w-24">Terminal:</span> xterm.js</div>
-        <div class="flex"><span class="font-bold text-base0D w-24">CPU:</span> V8 JavaScript Engine (8) @ 3.40GHz</div>
-        <div class="flex"><span class="font-bold text-base0D w-24">GPU:</span> WebGL Renderer</div>
+        <div class="flex"><span class="font-bold text-base0D ">OS:&emsp;</span> 16bases WebOS 1.0 x86_64</div>
+        <div class="flex"><span class="font-bold text-base0D ">Host:&emsp;</span> Node.js 24</div>
+        <div class="flex"><span class="font-bold text-base0D ">Uptime:&emsp;</span> 4 hours, 12 mins</div>
+        <div class="flex"><span class="font-bold text-base0D ">Packages:&emsp;</span> 214 (npm)</div>
+        <div class="flex"><span class="font-bold text-base0D ">Shell:&emsp;</span> zsh 5.9</div>
+        <div class="flex"><span class="font-bold text-base0D ">DE:&emsp;</span> Angular</div>
+        <div class="flex"><span class="font-bold text-base0D ">WM:&emsp;</span> DOM</div>
+        <div class="flex"><span class="font-bold text-base0D ">Terminal:&emsp;</span> xterm.js</div>
+        <div class="flex"><span class="font-bold text-base0D ">CPU:&emsp;</span> V8 JavaScript Engine (8) @ 3.40GHz</div>
+        <div class="flex"><span class="font-bold text-base0D ">GPU:&emsp;</span> WebGL Renderer</div>
 
         <div class="flex gap-1.5 mt-3">
           @for (num of ['08','09','0A','0B','0C','0D','0E','0F']; track num) {
