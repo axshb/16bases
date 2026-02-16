@@ -9,7 +9,22 @@ import { ThemeService } from '../services/theme.service';
     <div class="bg-base00 border border-base02 p-5 rounded-lg shadow-xl flex gap-6 font-mono text-base05">
 
       <div class="flex items-center justify-center shrink-0">
-        <img src="/ascii-art-text.png" alt="16bases logo" class="w-[200px] text-base0D"/>
+        <pre class="m-0 text-[1.1rem] leading-none text-base0D select-none">
+ ____   ___
+|    | |   |
+ |   | |   |___
+ |   | |    _  |
+ |   | |   | | |
+ |   | |   |_| |
+ |___| |_______|
+ ______  _____  _____  _____  _____
+|  _   ||  _  ||     ||     ||     |
+| |_|  || |_| ||  ___||   __||  ___|
+|      ||     || |___ |  |__ | |___
+|  _   ||     ||____ ||   __||___  |
+| |_|  ||  _  | ____|||  |__  ___| |
+|______||_| |_||_____||_____||_____|
+        </pre>
       </div>
 
       <div class="flex flex-col gap-1">
@@ -21,7 +36,6 @@ import { ThemeService } from '../services/theme.service';
         <div class="flex"><span class="font-bold text-base0D ">Uptime:&emsp;</span> 4 hours, 12 mins</div>
         <div class="flex"><span class="font-bold text-base0D ">Packages:&emsp;</span> 214 (npm)</div>
         <div class="flex"><span class="font-bold text-base0D ">Shell:&emsp;</span> zsh 5.9</div>
-        <div class="flex"><span class="font-bold text-base0D ">DE:&emsp;</span> Angular</div>
         <div class="flex"><span class="font-bold text-base0D ">WM:&emsp;</span> DOM</div>
         <div class="flex"><span class="font-bold text-base0D ">Terminal:&emsp;</span> xterm.js</div>
         <div class="flex"><span class="font-bold text-base0D ">CPU:&emsp;</span> V8 JavaScript Engine (8) @ 3.40GHz</div>

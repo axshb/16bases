@@ -10,12 +10,9 @@
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
     in pkgs.mkShell {
       buildInputs = with pkgs; [
-
-        # node
+        python3
         nodejs_24
         nodePackages.typescript
-        nodePackages.typescript-language-server
-        nodePackages.vscode-langservers-extracted
       ];
     };
   };

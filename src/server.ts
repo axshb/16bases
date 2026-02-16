@@ -30,6 +30,7 @@ const angularApp = new AngularNodeAppEngine();
 /**
 * Custom API Endpoints
 **/
+
 // for testing
 app.get('/api/scheme-data', async (req, res) => {
   try {
@@ -48,7 +49,6 @@ app.get('/api/scheme-data', async (req, res) => {
       res.status(500).json({ error: err.message });
     }
 });
-
 
 /**
  * Serve static files from /browser

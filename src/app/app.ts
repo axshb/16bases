@@ -1,4 +1,3 @@
-
 import { Component, inject, effect, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 
@@ -26,8 +25,8 @@ import { BrowserComponent } from './components/browser.component';
           <app-editor />
         </div>
 
-        <div class="col-start-2 row-start-1 row-span-2 bg-base00 rounded-lg border border-base02 overflow-hidden min-h-0">
-          <app-browser />
+        <div class="col-start-2 row-start-1 row-span-2 bg-base00 rounded-lg border border-base02 overflow-hidden flex flex-col h-full">
+          <app-browser class="flex-1 min-h-0" />
         </div>
 
       </main>
