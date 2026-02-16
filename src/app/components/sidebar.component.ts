@@ -1,50 +1,30 @@
+
 import { Component, computed, inject } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
-
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
   template: `
-    <aside class="sidebar">
-      <h1>16bases</h1>
-      <div class="grid">
+    <aside class="w-[200px] h-screen border-r border-base02 p-4 flex flex-col gap-4 bg-base00 text-base05">
+      <h1 class="text-xl font-bold">16bases</h1>
+
+      <div class="grid grid-cols-2 gap-2.5">
         @for (item of colorList(); track item.key) {
-          <div class="swatch">
-            <input type="color" [value]="item.value" (input)="update(item.key, $event)">
+          <div class="flex flex-col items-center text-[0.7rem] font-mono">
+            <div class="relative w-full h-[70px] overflow-hidden rounded border border-base02">
+              <input
+                type="color"
+                [value]="item.value"
+                (input)="update(item.key, $event)"
+                class="absolute -top-1 -left-1 w-[150%] h-[150%] cursor-pointer border-none bg-transparent p-0"
+              >
+            </div>
             <span>{{ item.key }}</span>
           </div>
         }
       </div>
     </aside>
-  `,
-  styles: `
-    .sidebar {
-      width: 200px;
-      padding: 1rem;
-      border-right: 1px solid #444;
-      height: 100vh;
-    }
-    .grid {
-       display: grid;
-       grid-template-columns: 1fr 1fr;
-       gap: 10px;
-     }
-    .swatch {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 0.7rem;
-      font-family: monospace;
-    }
-    input[type="color"] {
-      width: 100%;
-      height: 70px;
-      border: none;
-      cursor: pointer;
-      background: none;
-    }
-
   `
 })
 export class SidebarComponent {

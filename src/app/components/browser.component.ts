@@ -1,3 +1,4 @@
+
 import { Component, computed, inject } from '@angular/core';
 import { ThemeService } from '../services/theme.service';
 import { SchemeService } from '../services/schemes.service';
@@ -6,50 +7,35 @@ import { SchemeService } from '../services/schemes.service';
   selector: 'app-browser',
   standalone: true,
   template: `
-    <div class="scheme-grid">
-      @for (item of filteredSchemes(); track item.id) {
-        <div class="scheme-card" (click)="onClick(item)">
-          <div class="card-info">
-            <span class="name">{{ item.name }}</span>
-            <span class="badge" [class.builtin]="item.builtin">
+    <div class="h-full flex flex-col bg-base00 border border-base02 rounded-lg overflow-hidden relative">
+      <div class="flex gap-2.5 mt-2.5 px-4">
+        <input class="flex-1 bg-base00 border border-base03 text-base05 px-2.5 py-1 rounded text-sm outline-none focus:border-base0D" placeholder="Search...">
+        <div class="flex border border-base03 rounded overflow-hidden">
+           <button class="bg-base0D text-base00 px-2.5 py-1 text-[0.7rem] cursor-pointer border-none">All</button>
+           <button class="bg-base01 text-base05 px-2.5 py-1 text-[0.7rem] cursor-pointer border-none hover:bg-base02">Dark</button>
+           <button class="bg-base01 text-base05 px-2.5 py-1 text-[0.7rem] cursor-pointer border-none hover:bg-base02">Light</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-[repeat(auto-fill,minmax(140px,1fr))] gap-4 p-4 overflow-y-auto">
+        @for (item of filteredSchemes(); track item.id) {
+          <div class="bg-base00 border border-base02 p-3 rounded-md relative cursor-pointer transition-transform hover:-translate-y-0.5 hover:border-base0D" (click)="onClick(item)">
+            <div class="block text-base font-bold mb-1">{{ item.name }}</div>
+
+            <span class="text-xs px-1 py-0.5 rounded opacity-80"
+                  [class]="item.builtin ? 'text-base0B border border-base0B' : 'bg-base02'">
               {{ item.builtin ? 'Built-in' : 'User' }}
             </span>
+
+            <div class="absolute top-1 right-1 text-[0.6rem] opacity-40 pointer-events-none">{{ item.theme_type }}</div>
           </div>
-          <div class="type-tag">{{ item.theme_type }}</div>
-        </div>
-      } @empty {
-        <div class="loading">Fetching from Neon...</div>
-      }
+        } @empty {
+          <div class="text-base05 p-4">Fetching from Neon...</div>
+        }
+      </div>
     </div>
   `,
-  styles: `
-  .filter-bar { display: flex; gap: 10px; margin-top: 10px; }
-  .search-input {
-    flex: 1; background: var(--base00); border: 1px solid var(--base03);
-    color: var(--base05); padding: 5px 10px; border-radius: 4px; font-size: 0.8rem;
-  }
-  .toggle-group { display: flex; border: 1px solid var(--base03); border-radius: 4px; overflow: hidden; }
-  .toggle-group button {
-    background: var(--base01); border: none; color: var(--base05);
-    padding: 5px 10px; font-size: 0.7rem; cursor: pointer;
-  }
-  .toggle-group button.active { background: var(--base0D); color: var(--base00); }
-
-  .scheme-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; padding: 15px; }
-  .scheme-card {
-    background: var(--base00); border: 1px solid var(--base02);
-    padding: 12px; border-radius: 6px; position: relative;
-    transition: transform 0.1s; cursor: pointer;
-  }
-  .scheme-card:hover { transform: translateY(-2px); border-color: var(--base0D); }
-  .card-info .name { display: block; font-size: 1rem; font-weight: bold; margin-bottom: 4px; }
-  .badge { font-size: 0.75rem; padding: 2px 4px; border-radius: 3px; background: var(--base02); opacity: 0.8; }
-  .badge.builtin { color: var(--base0B); border: 1px solid var(--base0B); }
-  .type-tag { position: absolute; top: 5px; right: 5px; font-size: 0.6rem; opacity: 0.4; }
-  .type-tag, .badge {
-  pointer-events: none;
-  }
-  `
+  styles: `:host { display: block; height: 100%; overflow: hidden; }`
 })
 export class BrowserComponent {
   private theme = inject(ThemeService);
@@ -65,6 +51,3 @@ export class BrowserComponent {
     });
   }
 }
-
-
-
