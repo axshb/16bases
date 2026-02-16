@@ -30,6 +30,15 @@ export class ThemeService {
     this.scheme.update(prev => ({ ...prev, [key]: value }));
   }
 
+  public updateScheme(newScheme: Base16Scheme) {
+    const keys = Object.keys(this.scheme());
+    const next = { ...this.scheme() };
+
+    keys.forEach((key, i) => next[key] = newScheme[i]);
+
+    this.scheme.set(next);
+  }
+
   public cssVars = computed(() => {
     const currentScheme = this.scheme();
     const styles: Record<string, string> = {};

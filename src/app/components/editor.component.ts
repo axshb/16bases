@@ -12,7 +12,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   `,
   styles: `
   .terminal {
-      background: var(--base01);
+      background: var(--base00);
       border: 1px solid var(--base02);
       padding: 20px;
       border-radius: 8px;

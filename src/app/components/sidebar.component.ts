@@ -8,7 +8,6 @@ import { ThemeService } from '../services/theme.service';
   template: `
     <aside class="sidebar">
       <h1>16bases</h1>
-      <h3>Palette</h3>
       <div class="grid">
         @for (item of colorList(); track item.key) {
           <div class="swatch">
@@ -46,7 +45,6 @@ import { ThemeService } from '../services/theme.service';
       background: none;
     }
 
-    h3 { margin-bottom: 1rem; font-size: 0.9rem; opacity: 0.7; }
   `
 })
 export class SidebarComponent {

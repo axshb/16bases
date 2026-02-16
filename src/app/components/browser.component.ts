@@ -8,7 +8,7 @@ import { SchemeService } from '../services/schemes.service';
   template: `
     <div class="scheme-grid">
       @for (item of filteredSchemes(); track item.id) {
-        <div class="scheme-card">
+        <div class="scheme-card" (click)="onClick(item)">
           <div class="card-info">
             <span class="name">{{ item.name }}</span>
             <span class="badge" [class.builtin]="item.builtin">
@@ -42,10 +42,13 @@ import { SchemeService } from '../services/schemes.service';
     transition: transform 0.1s; cursor: pointer;
   }
   .scheme-card:hover { transform: translateY(-2px); border-color: var(--base0D); }
-  .card-info .name { display: block; font-size: 0.9rem; font-weight: bold; margin-bottom: 4px; }
-  .badge { font-size: 0.6rem; padding: 2px 4px; border-radius: 3px; background: var(--base02); opacity: 0.8; }
+  .card-info .name { display: block; font-size: 1rem; font-weight: bold; margin-bottom: 4px; }
+  .badge { font-size: 0.75rem; padding: 2px 4px; border-radius: 3px; background: var(--base02); opacity: 0.8; }
   .badge.builtin { color: var(--base0B); border: 1px solid var(--base0B); }
   .type-tag { position: absolute; top: 5px; right: 5px; font-size: 0.6rem; opacity: 0.4; }
+  .type-tag, .badge {
+  pointer-events: none;
+  }
   `
 })
 export class BrowserComponent {
@@ -56,5 +59,12 @@ export class BrowserComponent {
     return this.schemeService.schemes();
   });
 
-
+  onClick(selectedTheme: any) {
+    Object.entries(selectedTheme.colors).forEach(([key, color]) => {
+      this.theme.updateColor(key, color as string);
+    });
+  }
 }
+
+
+

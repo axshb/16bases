@@ -37,7 +37,6 @@ import { BrowserComponent } from './components/browser.component';
       flex: 1;
       gap: 20px;
       padding: 20px;
-      /* Left side is wider for code/fetch, right side for browser preview */
       grid-template-columns: 1.2fr 1fr;
       grid-template-rows: auto 1fr;
       grid-template-areas:
@@ -50,13 +49,12 @@ import { BrowserComponent } from './components/browser.component';
 
     .area-browser {
       grid-area: browser;
-      background: var(--base01);
+      background: var(--base00);
       border-radius: 8px;
       border: 1px solid var(--base02);
       overflow: hidden;
     }
 
-    /* Browser Mock Styling */
     .browser-mock header { background: var(--base02); padding: 10px; }
     .address-bar { background: var(--base00); padding: 4px 12px; border-radius: 4px; font-size: 0.75rem; opacity: 0.7; }
     .browser-content { padding: 40px; }
