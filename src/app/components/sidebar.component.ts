@@ -7,7 +7,7 @@ import { ThemeService } from '../services/theme.service';
   standalone: true,
   template: `
     <aside class="w-[200px] h-screen border-r border-base02 p-4 flex flex-col gap-4 bg-base00 text-base05">
-      <h1 class="text-xl font-bold">16bases</h1>
+      <h1 class="text-xl font-bold">Theme Editor</h1>
 
       <div class="grid grid-cols-2 gap-2.5">
         @for (item of colorList(); track item.key) {
