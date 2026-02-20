@@ -12,7 +12,7 @@ export interface Base16Scheme {
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
 
-  public scheme = signal<Base16Scheme>({
+public scheme = signal<Base16Scheme>({
     base00: '#1e1e2e',
     base01: '#181825',
     base02: '#313244',
@@ -59,18 +59,32 @@ export class ThemeService {
   private http = inject(HttpClient);
 
   private userSchemes = toSignal(
-    this.http.get<any[]>('/api/scheme-data'),
+    this.http.get<Base16Scheme[]>('/api/scheme-data'),
     { initialValue: [] }
   );
 
   private builtInSchemes = signal<any[]>(builtIns);
 
   // to do: consider sets (pass by reference might make this annoying)
-  // also, haviing userSchemes called on demand rather than every time
+  // also, having userSchemes called on demand rather than every time
   // which would involve avoiding having schemes set up like this, because
   // components that call schemes will make an api request every time
   public schemes = computed (() => {
     return [...this.builtInSchemes(), ...this.userSchemes()]
   })
+
+  uploadTheme(name: string, creator: string) {
+
+    const dark = true; // temp
+    const builtIn = false;
+
+    const colors = JSON.stringify(this.scheme());
+    const payload = { name, creator, colors, dark, builtIn };
+
+    return this.http.post('/api/scheme-data', payload).subscribe({
+      next: (response) => console.log('Theme saved!', response),
+      error: (err) => console.error('Upload failed', err)
+    });
+  }
 }
 

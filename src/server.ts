@@ -12,6 +12,7 @@ import { neon } from '@neondatabase/serverless';
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
+app.use(express.json());
 const angularApp = new AngularNodeAppEngine();
 
 /**
@@ -32,12 +33,12 @@ const angularApp = new AngularNodeAppEngine();
 **/
 
 // for testing
-app.get('/api/scheme-data', async (req, res) => {
+app.get('/api/scheme-data', async (_req, res) => {
   try {
     const sql = neon(process.env['DATABASE_URL']!);
 
     const data = await sql`
-      SELECT * FROM "schemeData"
+      SELECT * FROM "themes"
       ORDER BY "created_at" DESC
     `;
 
@@ -48,6 +49,31 @@ app.get('/api/scheme-data', async (req, res) => {
       console.error(err.stack);
       res.status(500).json({ error: err.message });
     }
+});
+
+// upload theme
+app.post('/api/scheme-data', async (req, res) => {
+  try {
+    console.log(req.body.name);
+    const { name, creator, colors, dark, builtIn } = req.body;
+
+    if (!name || !colors) {
+      return res.status(400).json({ error: 'Title and colors are required' });
+    }
+
+    const sql = neon(process.env['DATABASE_URL']!);
+
+    const result = await sql`
+      INSERT INTO "themes" (name, creator, colors, created_at, dark, builtIn)
+      VALUES (${name}, ${creator}, ${JSON.stringify(colors)}, NOW(), ${dark}, ${builtIn})
+      RETURNING *
+    `;
+
+    return res.status(201).json(result[0]);
+  } catch (err: any) {
+    console.error('Database Insertion Error:', err.message);
+    return res.status(500).json({ error: 'Failed to save theme' });
+  }
 });
 
 /**

@@ -36,6 +36,7 @@
     "@angular/ssr": "^21.1.4",
     "@neondatabase/serverless": "^1.0.2",
     "@types/prismjs": "^1.26.6",
+    "body-parser": "^2.2.2",
     "dotenv": "^17.3.1",
     "express": "^5.1.0",
     "highlight.js": "^11.11.1",

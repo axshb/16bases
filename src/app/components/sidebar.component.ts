@@ -1,5 +1,4 @@
-
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core'; // Added signal
 import { ThemeService } from '../services/theme.service';
 
 @Component({
@@ -12,7 +11,7 @@ import { ThemeService } from '../services/theme.service';
       <div class="grid grid-cols-2 gap-2.5">
         @for (item of colorList(); track item.key) {
           <div class="flex flex-col items-center text-[0.7rem] font-mono">
-            <div class="relative w-full h-[70px] overflow-hidden rounded border border-base02">
+            <div class="relative w-full h-[6vh] overflow-hidden rounded border border-base02">
               <input
                 type="color"
                 [value]="item.value"
@@ -23,6 +22,29 @@ import { ThemeService } from '../services/theme.service';
             <span>{{ item.key }}</span>
           </div>
         }
+
+        <div class="col-span-2 flex flex-col gap-3 mt-4 border-t border-base02 pt-4">
+         <input
+            #nameInput
+            type="text"
+            class="bg-base01 p-2 text-[0.8rem]"
+            placeholder="Theme name..."
+          />
+
+        <input
+            #creatorInput
+            type="text"
+            class="bg-base01 p-2 text-[0.8rem]"
+            placeholder="Creator name..."
+          />
+
+         <button
+            (click)="handleUpload(nameInput.value, creatorInput.value)"
+            class="bg-base0D text-base00 px-3 py-2 text-[0.8rem] font-bold cursor-pointer">
+            Upload Custom Theme
+         </button>
+        </div>
+
       </div>
     </aside>
   `
@@ -37,5 +59,14 @@ export class SidebarComponent {
   update(key: string, event: Event) {
     const val = (event.target as HTMLInputElement).value;
     this.theme.updateColor(key, val);
+  }
+
+  handleUpload(name: string, creator: string) {
+    if (!name.trim()) {
+      alert('Please enter a title first!');
+      return;
+    }
+
+    this.theme.uploadTheme(name, creator);
   }
 }

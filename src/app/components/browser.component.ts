@@ -1,6 +1,6 @@
 
 import { Component, computed, inject } from '@angular/core';
-import { ThemeService } from '../services/theme.service';
+import { Base16Scheme, ThemeService } from '../services/theme.service';
 
 @Component({
   selector: 'app-browser',
@@ -61,7 +61,17 @@ export class BrowserComponent {
   });
 
   onClick(selectedTheme: any) {
-    Object.entries(selectedTheme.colors).forEach(([key, color]) => {
+
+    let selectedColors: Base16Scheme = selectedTheme.colors;
+
+    // db returns a stringified json object we need to parse
+    // it may make more sense to move this to the service
+    if (!selectedTheme.builtin) {
+      selectedColors = JSON.parse(selectedTheme.colors);
+    }
+
+    console.log(selectedColors);
+    Object.entries(selectedColors).forEach(([key, color]) => {
       this.theme.updateColor(key, color as string);
     });
   }

@@ -11,7 +11,7 @@ def get_luminance(hex_color):
 
     r, g, b = [int(hex_color[i:i+2], 16) / 255.0 for i in (0, 2, 4)]
 
-    # Apply gamma correction for sRGB
+    # srgb gamma correction
     def adjust(c):
         return c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4
 
@@ -21,14 +21,13 @@ def parse_kitty_theme(file_path):
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # Regex captures key and hex, ignoring extra whitespace/tabs
+    # get key and hex, ignore extra whitespace/tabs
     pattern = re.compile(r'^([a-z0-9_]+)\s+(#[0-9a-fA-F]{3,6})', re.MULTILINE)
     raw_data = dict(pattern.findall(content))
 
     if not raw_data:
         return None
 
-    # Standard Base16 mapping from Kitty keys
     scheme = {
         "base00": raw_data.get('background', '#000000'),
         "base01": raw_data.get('inactive_tab_background', raw_data.get('color0', '#1a1a1a')),
@@ -39,7 +38,7 @@ def parse_kitty_theme(file_path):
         "base06": raw_data.get('color15', '#ffffff'),
         "base07": raw_data.get('cursor', '#ffffff'),
         "base08": raw_data.get('color1', '#ff5555'),
-        "base09": raw_data.get('color9', '#ffb86c'), # Using color9 as orange fallback
+        "base09": raw_data.get('color9', '#ffb86c'),
         "base0A": raw_data.get('color3', '#f1fa8c'),
         "base0B": raw_data.get('color2', '#50fa7b'),
         "base0C": raw_data.get('color6', '#8be9fd'),
@@ -48,7 +47,7 @@ def parse_kitty_theme(file_path):
         "base0F": raw_data.get('color13', '#ff79c6'),
     }
 
-    # Determine dark/light based on background luminance
+    # dark/light based on background luminance
     is_dark = get_luminance(scheme["base00"]) < 0.5
     name_stub = os.path.basename(file_path).replace('.conf', '')
     unique_id = hashlib.md5(name_stub.encode()).hexdigest()[:8]
@@ -61,7 +60,6 @@ def parse_kitty_theme(file_path):
         "builtin": True
     }
 
-# Process the directory
 themes_dir = '../kitty-themes/themes'
 processed_data = []
 if os.path.exists(themes_dir):
