@@ -1,5 +1,4 @@
-
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Base16Scheme, ThemeService } from '../services/theme.service';
 
 @Component({
@@ -8,11 +7,28 @@ import { Base16Scheme, ThemeService } from '../services/theme.service';
   template: `
     <div class="h-full flex flex-col bg-base00 relative">
       <div class="flex-none flex gap-2.5 p-4 border-b border-base02">
-        <input class="flex-1 bg-base01 border border-base03 text-base05 px-2.5 py-1.5 rounded text-sm outline-none focus:border-base0D" placeholder="Search themes...">
+
+        <input
+          (input)="searchQuery.set($any($event.target).value)"
+          class="flex-1 bg-base01 border border-base03 text-base05 px-2.5 py-1.5 rounded text-sm outline-none focus:border-base0D"
+          placeholder="Search themes..."
+          >
+
         <div class="flex border border-base03 rounded overflow-hidden">
-           <button class="bg-base0D text-base00 px-3 py-1 text-[0.7rem] font-bold">All</button>
-           <button class="bg-base01 text-base05 px-3 py-1 text-[0.7rem] hover:bg-base02">Dark</button>
-           <button class="bg-base01 text-base05 px-3 py-1 text-[0.7rem] hover:bg-base02">Light</button>
+           <button
+            (click)="filter.set('all')"
+            [class]="getBtnClass('all')">All
+            </button>
+
+            <button
+            (click)="filter.set('dark')"
+            [class]="getBtnClass('dark')">Dark
+            </button>
+
+            <button
+            (click)="filter.set('light')"
+            [class]="getBtnClass('light')">Light
+            </button>
         </div>
       </div>
 
@@ -56,12 +72,31 @@ import { Base16Scheme, ThemeService } from '../services/theme.service';
 export class BrowserComponent {
   private theme = inject(ThemeService);
 
+  searchQuery = signal('');
+  filter = signal<'all' | 'dark' | 'light'>('all');
+
   public filteredSchemes = computed(() => {
-    return this.theme.schemes();
+    const themes = this.theme.schemes();
+    const query = this.searchQuery().toLowerCase();
+    const mode = this.filter();
+
+    return themes.filter(t => {
+      const matchesSearch = t.name.toLowerCase().includes(query);
+      if (mode === 'all') return matchesSearch;
+
+      const isDark = t.dark ?? true;
+      return matchesSearch && (mode === 'dark' ? isDark : !isDark);
+    });
   });
 
-  onClick(selectedTheme: any) {
+  getBtnClass(type: string) {
+    const base = "px-3 py-1 text-[0.7rem] transition-colors ";
+    return this.filter() === type
+      ? base + "bg-base0D text-base00 font-bold"
+      : base + "bg-base01 text-base05 hover:bg-base02";
+  }
 
+  onClick(selectedTheme: any) {
     let selectedColors: Base16Scheme = selectedTheme.colors;
 
     // db returns a stringified json object we need to parse
@@ -70,7 +105,6 @@ export class BrowserComponent {
       selectedColors = JSON.parse(selectedTheme.colors);
     }
 
-    console.log(selectedColors);
     Object.entries(selectedColors).forEach(([key, color]) => {
       this.theme.updateColor(key, color as string);
     });
