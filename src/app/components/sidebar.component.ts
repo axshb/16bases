@@ -28,7 +28,7 @@ import { ThemeService } from '../services/theme.service';
             #nameInput
             type="text"
             class="bg-base01 p-2 text-[0.8rem]"
-            placeholder="Theme name..."
+            placeholder="Theme name"
           />
 
         <input
@@ -36,6 +36,7 @@ import { ThemeService } from '../services/theme.service';
             type="text"
             class="bg-base01 p-2 text-[0.8rem]"
             placeholder="Creator name..."
+            value="Guest"
           />
 
          <button
@@ -63,7 +64,7 @@ export class SidebarComponent {
 
   handleUpload(name: string, creator: string) {
     if (!name.trim()) {
-      alert('Please enter a title first!');
+      alert('Please enter a theme name first!');
       return;
     }
 
