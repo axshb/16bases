@@ -27,22 +27,24 @@ import { ThemeService } from '../services/theme.service';
          <input
             #nameInput
             type="text"
-            class="bg-base01 p-2 text-[0.8rem]"
+            class="bg-base01 p-2 text-[0.8rem] rounded border"
             placeholder="Theme name"
           />
 
         <input
             #creatorInput
             type="text"
-            class="bg-base01 p-2 text-[0.8rem]"
+            class="bg-base01 p-2 text-[0.8rem] rounded border"
             placeholder="Creator name..."
             value="Guest"
+            rounded border
           />
 
          <button
             (click)="handleUpload(nameInput.value, creatorInput.value)"
-            class="bg-base0D text-base00 px-3 py-2 text-[0.8rem] font-bold cursor-pointer">
+            class="bg-base0D text-base00 px-3 py-2 text-[0.8rem] font-bold cursor-pointer rounded border">
             Upload Custom Theme
+            rounded border
          </button>
         </div>
 
