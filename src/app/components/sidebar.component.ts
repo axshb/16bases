@@ -44,7 +44,6 @@ import { ThemeService } from '../services/theme.service';
             (click)="handleUpload(nameInput.value, creatorInput.value)"
             class="bg-base0D text-base00 px-3 py-2 text-[0.8rem] font-bold cursor-pointer rounded border">
             Upload Custom Theme
-            rounded border
          </button>
         </div>
 
